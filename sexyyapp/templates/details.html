@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <h1>Products Details</h1>
+    <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mt-3 mb-3 w-25">
+                <div class="card w-100 text-center pt-3">
+                  <img src="{{details.image.url}}" class="card-img-top">
+                  <div class="card-body mt-3">
+                    <h5 class="card-title">products: {{details.name}}</h5>
+                    <h5 class="card-title">Category:{{details.category}}</h5>
+                    <p class="card-text">${{details.description}}</p>
+                    <p class="card-text">${{details.price}}</p>
+                  </div>
+                  <form style="width: 400px;" method="POST" action="{% url 'addtocart' %}">
+                  {% csrf_token %}
+                          <input type="number" name="quantity" value="1" min="{{details.min}}" max="{{details.max}}" style="width: 40px;">
+                          <input type="hidden" name="itemid" value="{{details.id}}">
+                          <button type="submit" class="btn btn-primary">Add to cart</button>
+                        </div>
+                  </form>
+                </div>
+            </div>
+    </div>
+</div>
+  
+{% endblock content %}

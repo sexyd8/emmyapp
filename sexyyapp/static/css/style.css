@@ -1,0 +1,24 @@
+.navbar {
+    background-color: blueviolet;
+}
+
+#navbarSupportedContent a{
+    float: right;
+}
+.team{
+    background: silver;
+    color: tan;
+    font-weight: bolder;
+}
+
+/* completed page */
+.myuser h2{
+    color: crimson;
+}
+.myuser h3{
+    color: darkcyan;
+}
+.myuser h4{
+    color: darkgreen;
+}
+/* completed page done */

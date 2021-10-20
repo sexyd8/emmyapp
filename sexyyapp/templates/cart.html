@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% load humanize %}
+
+{% block title %} Shortcart {% endblock title %}
+
+    {% block content %} 
+    <div class="container-fluid mt-5 mb-5">
+        <div class="row">
+            <div class="col-12 ccol-sm-6 col-lg-3"></div>
+            <div class="col-12 ccol-sm-6 col-lg-6 p-5">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">price</th>
+                        <th scope="col">Quality</th>
+                        <th scope="col">Quality update</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>    
+                        {% if cart %}
+                            {% for item in cart %}
+                            <tr>
+                                <td scope="row">
+                                    <form  method="POST" action="{% url 'deleteitem' %}">
+                                    {% csrf_token %}   
+                                        <input type="hidden" name="itemid" value="{{item.id}}">
+                                        <button type="submit" class="btn btn-danger">&times;</button>
+                                    
+                                    </form>
+                                </td>
+                                <td>{{item.product.name}}</td>
+                                <td><img src="{{item.product.image.url}}" width="70px"></td>
+                                <td>{{item.product.price|floatformat:2|intcomma}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>
+                                    <form method="POST" action="{% url 'increase' %}">
+                                        {% csrf_token %}
+                                                <input type="number" name="itemval" value="{{item.quantity}}" min="{{item.min}}" max="{{item.max}}" style="width: 50px;">
+                                                <input type="hidden" name="valid" value="{{item.id}}">
+                                                <button type="submit" class="btn btn-primary">&checkmark;</button>
+                                              </div>
+                                        </form>
+                                </td>
+                                <td>{{item.product.price|mul:item.quantity|floatformat:2|intcomma}}</td>
+                            </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Subtotal: {{subtotal|floatformat:2|intcomma}}</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Vat: {{vat|floatformat:2|intcomma}}</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Total: {{total|floatformat:2|intcomma}}</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><a href="{% url 'checkout' %}">Checkout</a></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 ccol-sm-6 col-lg-3"></div>
+        </div>
+    </div>
+{% endblock content %}
