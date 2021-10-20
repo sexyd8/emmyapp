@@ -90,8 +90,8 @@ WSGI_APPLICATION = 'emmyapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Assappdb',
-        'USER': 'Assappdbadmin',
+        'NAME': 'assappdb',
+        'USER': 'assappdbadmin',
         'PASSWORD': 'donchychy@56',
         'HOST': '127.0.0.1',
         'PORT': '5432',
